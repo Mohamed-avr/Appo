@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 
 const dataPr = [
   {
     Id: 1,
     heroName: "gabrial",
-    score: 233,
+    score: 1923,
     country: "amazonlIli",
   },
   {
@@ -39,18 +39,6 @@ const dataPr = [
     score: 233,
     country: "amazonlIli",
   },
-  {
-    Id: 7,
-    heroName: "gabrial",
-    score: 233,
-    country: "amazonlIli",
-  },
-  {
-    Id: 8,
-    heroName: "gabrial",
-    score: 233,
-    country: "amazonlIli",
-  },
 ];
 
 export default function App() {
@@ -63,7 +51,6 @@ export default function App() {
       }}
     >
       <ScrollView
-        endFillColor={"green"}
         contentContainerStyle={{
           justifyContent: "center",
           flexDirection: "row",
@@ -92,7 +79,7 @@ export default function App() {
                 padding: 16,
               }}
             >
-              <View style={{ height: 80, color: "" }}>
+              <View style={{ height: 70, color: "" }}>
                 <Text
                   style={{ fontSize: 32, color: "green", fontWeight: "800" }}
                 >
@@ -109,6 +96,14 @@ export default function App() {
                 {e.heroName}
               </Text>
               <Text style={{ fontSize: 14, color: "#555" }}>{e.country}</Text>
+              <Button
+                title="Support"
+                color="#222"
+                style={{
+                  margin: 10,
+                  borderRadius: 8,
+                }}
+              />
             </View>
           );
         })}
