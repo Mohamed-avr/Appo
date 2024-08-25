@@ -8,6 +8,7 @@ import {
   Button,
   Pressable,
   Modal,
+  ActivityIndicator,
 } from "react-native";
 
 const dataPr = [
@@ -51,8 +52,7 @@ const dataPr = [
 ];
 
 export default function App() {
-  const [isHidden, setisHidden] = useState(true);
-
+  const [stop, setStop] = useState(true);
   return (
     <View
       style={{
@@ -61,12 +61,31 @@ export default function App() {
         flex: 1,
       }}
     >
-      <StatusBar backgroundColor="#eee" hidden={isHidden} />
-      <Text style={{ fontSize: 20, fontWeight: 500 }}> Status bar</Text>
+      <Text style={{ fontSize: 20, fontWeight: 500 }}>
+        ActivityIndicator, is loading ...
+      </Text>
+      <ActivityIndicator
+        size="small"
+        color="#0000ff"
+        animating={stop}
+        style={{
+          marginTop: 100,
+        }}
+      />
+      <ActivityIndicator
+        size="large"
+        color="#0000ff"
+        animating={stop}
+        style={{
+          marginTop: 20,
+        }}
+      />
+
       <Button
-        title={isHidden ? "Show" : "Hide"}
+        color={"#111"}
+        title={stop ? "Stop loading " : "Start loading"}
         onPress={() => {
-          setisHidden(isHidden ? false : true);
+          setStop(stop ? false : true);
         }}
       />
     </View>
