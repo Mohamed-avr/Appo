@@ -9,50 +9,11 @@ import {
   Pressable,
   Modal,
   ActivityIndicator,
+  Alert,
 } from "react-native";
-
-const dataPr = [
-  {
-    Id: 1,
-    heroName: "gabrial",
-    score: 1923,
-    country: "amazonlIli",
-  },
-  {
-    Id: 2,
-    heroName: "gabrial",
-    score: 233,
-    country: "amazonlIli",
-  },
-  {
-    Id: 3,
-    heroName: "gabrial",
-    score: 233,
-    country: "amazonlIli",
-  },
-  {
-    Id: 4,
-    heroName: "gabrial",
-    score: 233,
-    country: "amazonlIli",
-  },
-
-  {
-    Id: 5,
-    heroName: "gabrial",
-    score: 233,
-    country: "amazonlIli",
-  },
-  {
-    Id: 6,
-    heroName: "gabrial",
-    score: 233,
-    country: "amazonlIli",
-  },
-];
+import Greeting from "./components/Greeting";
 
 export default function App() {
-  const [stop, setStop] = useState(true);
   return (
     <View
       style={{
@@ -61,33 +22,7 @@ export default function App() {
         flex: 1,
       }}
     >
-      <Text style={{ fontSize: 20, fontWeight: 500 }}>
-        ActivityIndicator, is loading ...
-      </Text>
-      <ActivityIndicator
-        size="small"
-        color="#0000ff"
-        animating={stop}
-        style={{
-          marginTop: 100,
-        }}
-      />
-      <ActivityIndicator
-        size="large"
-        color="#0000ff"
-        animating={stop}
-        style={{
-          marginTop: 20,
-        }}
-      />
-
-      <Button
-        color={"#111"}
-        title={stop ? "Stop loading " : "Start loading"}
-        onPress={() => {
-          setStop(stop ? false : true);
-        }}
-      />
+      <Greeting name="Alfrido" clubName="Prawxx" />
     </View>
   );
 }
