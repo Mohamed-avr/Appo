@@ -3,5 +3,7 @@
 
 ### Types of styling :
 1- Inline style
+
 2- StyleSheet API
+
 3- Nativewind
