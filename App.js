@@ -23,7 +23,7 @@ export default function App() {
       }}
     >
       <View style={styles.container}>
-        <Text style={styles.text}> This is stylesheet API</Text>
+        <Text style={styles.text}>This is stylesheet API</Text>
       </View>
     </View>
   );
@@ -31,7 +31,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#000",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
     width: "80%",
     height: "60%",
     margin: "auto",
@@ -40,5 +40,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
+    fontSize: 34,
+    textAlign: "left",
+    fontWeight: "medium",
+    color: "black",
   },
 });
