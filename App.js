@@ -24,15 +24,15 @@ export default function App() {
       }}
     >
       <View style={[styles.box, styles.box1Bg]}>
-        <Text style={styles.text}>Multiple styles BOX 1</Text>
+        <Text style={styles.text}>Multiple styles Box 1</Text>
       </View>
 
       <View style={[styles.box, styles.box2Bg]}>
-        <Text style={styles.text}>Multiple styles BOX 2 </Text>
+        <Text style={styles.text}>Multiple styles Box 2 </Text>
       </View>
       {/* conditional styling */}
       <View style={[styles.box, isActive && styles.box3Bg]}>
-        <Text style={styles.text}>Multiple styles BOX 3 </Text>
+        <Text style={styles.text}>Multiple styles Box 3 </Text>
       </View>
     </View>
   );
