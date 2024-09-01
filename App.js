@@ -22,7 +22,23 @@ export default function App() {
         flex: 1,
       }}
     >
-      <Greeting name="Alfrido" clubName="Prawxx" />
+      <View style={styles.container}>
+        <Text style={styles.text}> This is stylesheet API</Text>
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#000",
+    width: "80%",
+    height: "60%",
+    margin: "auto",
+    padding: 20,
+    borderRadius: 16,
+  },
+  text: {
+    color: "#fff",
+  },
+});
