@@ -1,6 +1,6 @@
-### StyleSheet API 
+## StyleSheet API 
 
-## WHy styleSheet API ?
+### Why styleSheet API ?
 1- easy to understand and reading  
 
 2- naming the styles adds meaning to the low level components in the render function 
