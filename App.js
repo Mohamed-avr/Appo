@@ -14,6 +14,7 @@ import {
 import Greeting from "./components/Greeting";
 
 export default function App() {
+  const [isActive, setIsActive] = useState(true);
   return (
     <View
       style={{
@@ -22,25 +23,41 @@ export default function App() {
         flex: 1,
       }}
     >
-      <View style={styles.container}>
-        <Text style={styles.text}>This is stylesheet API</Text>
+      <View style={[styles.box, styles.box1Bg]}>
+        <Text style={styles.text}>Multiple styles BOX 1</Text>
+      </View>
+
+      <View style={[styles.box, styles.box2Bg]}>
+        <Text style={styles.text}>Multiple styles BOX 2 </Text>
+      </View>
+      {/* conditional styling */}
+      <View style={[styles.box, isActive && styles.box3Bg]}>
+        <Text style={styles.text}>Multiple styles BOX 3 </Text>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  box: {
     backgroundColor: "rgba(0, 0, 0, 0.1)",
-    width: "80%",
-    height: "60%",
-    margin: "auto",
+    width: "100%",
     padding: 20,
+    marginTop: 16,
     borderRadius: 16,
+  },
+  box1Bg: {
+    backgroundColor: "blue",
+  },
+  box2Bg: {
+    backgroundColor: "green",
+  },
+  box3Bg: {
+    backgroundColor: "brown",
   },
   text: {
     color: "#fff",
-    fontSize: 34,
+    fontSize: 28,
     textAlign: "left",
     fontWeight: "medium",
     color: "black",
