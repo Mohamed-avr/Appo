@@ -23,43 +23,31 @@ export default function App() {
         flex: 1,
       }}
     >
-      <View style={[styles.box, styles.box1Bg]}>
-        <Text style={styles.text}>Multiple styles Box 1</Text>
-      </View>
-
-      <View style={[styles.box, styles.box2Bg]}>
-        <Text style={styles.text}>Multiple styles Box 2 </Text>
-      </View>
-      {/* conditional styling */}
-      <View style={[styles.box, isActive && styles.box3Bg]}>
-        <Text style={styles.text}>Multiple styles Box 3 </Text>
-      </View>
+      <View style={[styles.box, styles.androidStyle]}></View>
+      <View style={[styles.box, styles.iOsStyle]}></View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    backgroundColor: "#fff",
     width: "100%",
-    padding: 20,
+    height: 200,
     marginTop: 16,
     borderRadius: 16,
   },
-  box1Bg: {
-    backgroundColor: "blue",
+  androidStyle: {
+    elevation: 10,
+    shadowColor: "#222",
   },
-  box2Bg: {
-    backgroundColor: "green",
-  },
-  box3Bg: {
-    backgroundColor: "brown",
-  },
-  text: {
-    color: "#fff",
-    fontSize: 28,
-    textAlign: "left",
-    fontWeight: "medium",
-    color: "black",
+  iOsStyle: {
+    shadowColor: "green",
+    shadowOffset: {
+      width: 20,
+      height: 20,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
   },
 });
