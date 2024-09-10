@@ -12,6 +12,7 @@ import {
   Alert,
 } from "react-native";
 import Greeting from "./components/Greeting";
+import Box from "./components/Box";
 
 export default function App() {
   const [isActive, setIsActive] = useState(true);
@@ -21,33 +22,16 @@ export default function App() {
         paddingHorizontal: 16,
         paddingVertical: 60,
         flex: 1,
+        backgroundColor: "#111",
       }}
     >
-      <View style={[styles.box, styles.androidStyle]}></View>
-      <View style={[styles.box, styles.iOsStyle]}></View>
+      <Box style={{ backgroundColor: "red" }}>BOX 1</Box>
+      <Box style={{ backgroundColor: "#FCC" }}>BOX 2</Box>
+      <Box style={{ backgroundColor: "green" }}>BOX 3</Box>
+      <Box style={{ backgroundColor: "#FB1" }}>BOX 4</Box>
+      <Box style={{ backgroundColor: "blue" }}>BOX 5</Box>
+      <Box style={{ backgroundColor: "orange" }}>BOX 6</Box>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  box: {
-    backgroundColor: "#fff",
-    width: "100%",
-    height: 200,
-    marginTop: 16,
-    borderRadius: 16,
-  },
-  androidStyle: {
-    elevation: 10,
-    shadowColor: "#222",
-  },
-  iOsStyle: {
-    shadowColor: "green",
-    shadowOffset: {
-      width: 20,
-      height: 20,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-  },
-});
