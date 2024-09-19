@@ -10,6 +10,7 @@ import {
   Modal,
   ActivityIndicator,
   Alert,
+  TextBase,
 } from "react-native";
 import Greeting from "./components/Greeting";
 import Box from "./components/Box";
@@ -19,18 +20,30 @@ export default function App() {
   return (
     <View
       style={{
-        paddingHorizontal: 16,
-        paddingVertical: 60,
-        flex: 1,
+        padding: 16,
         backgroundColor: "#111",
+        flex: 1,
+        borderWidth: 2,
+        marginTop: 40,
+        borderColor: "red",
       }}
     >
-      <Box style={{ backgroundColor: "red" }}>BOX 1</Box>
-      <Box style={{ backgroundColor: "#FCC" }}>BOX 2</Box>
-      <Box style={{ backgroundColor: "green" }}>BOX 3</Box>
-      <Box style={{ backgroundColor: "#FB1" }}>BOX 4</Box>
-      <Box style={{ backgroundColor: "blue" }}>BOX 5</Box>
-      <Box style={{ backgroundColor: "orange" }}>BOX 6</Box>
+      <Box
+        style={{
+          backgroundColor: "red",
+          postion: "absolute",
+          top: 150,
+          left: 150,
+        }}
+      >
+        BOX 1
+      </Box>
+      <Box style={{ backgroundColor: "#FCC", postion: "absolute", top: -150 }}>
+        BOX 2
+      </Box>
+      <Box style={{ backgroundColor: "#ff0" }}>BOX 1</Box>
+      <Box style={{ backgroundColor: "#F8C" }}>BOX 2</Box>
+      <Box style={{ backgroundColor: "#ee9" }}>BOX 1</Box>
     </View>
   );
 }

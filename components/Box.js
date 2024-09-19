@@ -11,10 +11,8 @@ export default function Box({ children, style }) {
 
 const styles = StyleSheet.create({
   box: {
-    width: "100%",
-    height: 50,
-    marginTop: 16,
-    padding: 8,
+    width: 150,
+    height: 150,
   },
   text: {
     color: "white",
