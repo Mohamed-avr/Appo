@@ -1,109 +1,64 @@
-import { View, SafeAreaView, Text, Platform, ScrollView } from "react-native";
-import PokemonCard from "./components/PokemonCard";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  Platform,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
+import PokemonData from "./Data.json";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
-  // seperated data for signle maping
-  const charmanderData = {
-    name: "Charmander",
-    image: require("./assets/pokemons/charmander.png"),
-    type: "Fire",
-    hp: 39,
-    moves: ["Scratch", "Ember", "Growl", "Leer"],
-    weaknesses: ["Water", "Rock"],
-  };
-  const squirtleData = {
-    name: "Squirtle",
-    image: require("./assets/pokemons/squirtle.png"), // Replace with the actual image path
-    type: "Water",
-    hp: 44,
-    moves: ["Tackle", "Water Gun", "Tail Whip", "Withdraw"],
-    weaknesses: ["Electric", "Grass"],
-  };
-
-  const bulbasaurData = {
-    name: "Bulbasaur",
-    image: require("./assets/pokemons/bulbasaur.png"), // Replace with the actual image path
-    type: "Grass",
-    hp: 45,
-    moves: ["Tackle", "Vine Whip", "Growl", "Leech Seed"],
-    weaknesses: ["Fire", "Ice", "Flying", "Psychic"],
-  };
-
-  const pikachuData = {
-    name: "Pikachu",
-    image: require("./assets/pokemons/pikachu.png"), // Replace with the actual image path
-    type: "Electric",
-    hp: 35,
-    moves: ["Quick Attack", "Thunderbolt", "Tail Whip", "Growl"],
-    weaknesses: ["Ground"],
-  };
-
-  //  all data in one : for mapping
-  const pokemonData = [
-    {
-      name: "Charmander",
-      image: require("./assets/pokemons/charmander.png"),
-      type: "Fire",
-      hp: 39,
-      moves: ["Scratch", "Ember", "Growl", "Leer"],
-      weaknesses: ["Water", "Rock"],
-    },
-    {
-      name: "Squirtle",
-      image: require("./assets/pokemons/squirtle.png"),
-      type: "Water",
-      hp: 44,
-      moves: ["Tackle", "Water Gun", "Tail Whip", "Withdraw"],
-      weaknesses: ["Electric", "Grass"],
-    },
-    {
-      name: "Bulbasaur",
-      image: require("./assets/pokemons/bulbasaur.png"),
-      type: "Grass",
-      hp: 45,
-      moves: ["Tackle", "Vine Whip", "Growl", "Leech Seed"],
-      weaknesses: ["Fire", "Ice", "Flying", "Psychic"],
-    },
-    {
-      name: "Pikachu",
-      image: require("./assets/pokemons/pikachu.png"),
-      type: "Electric",
-      hp: 35,
-      moves: ["Quick Attack", "Thunderbolt", "Tail Whip", "Growl"],
-      weaknesses: ["Ground"],
-    },
-  ];
-
+  console.log(PokemonData);
   return (
     <SafeAreaView
       style={{
-        paddingTop: Platform.OS === "ios" ? 0 : 0,
-        paddingHorizontal: Platform.OS === "android" ? 0 : 0,
-        marginTop: 0,
+        paddingTop: Platform.OS === "ios" ? 24 : 16,
+        paddingHorizontal: Platform.OS === "android" ? 16 : 16,
+        backgroundColor: "#000",
         flex: 1,
-        backgroundColor: "#111",
       }}
     >
-      <ScrollView
-        style={{
-          marginTop: 40,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {pokemonData.map((pokemon, index) => {
-          return <PokemonCard key={index} {...pokemon} />;
+      <ScrollView>
+        {PokemonData.map((pok) => {
+          return (
+            <View key={pok.id} style={styles.pokCard}>
+              <Text style={styles.pokCardText}>{pok.name}</Text>
+              <Text style={styles.pokCardTextType}>{pok.type}</Text>
+            </View>
+          );
         })}
       </ScrollView>
-
-      {/* 
-      sigle data mapping
-      <PokemonCard {...charmanderData} />
-      <PokemonCard {...squirtleData} />
-      <PokemonCard {...bulbasaurData} />
-      <PokemonCard {...pikachuData} /> 
-      
-      */}
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  pokCard: {
+    width: "100%",
+    paddingHorizontal: 8,
+    paddingVertical: 16,
+    borderRadius: 8,
+    marginVertical: 4,
+    borderWidth: 2,
+    backgroundColor: "#f0f0f0",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 4,
+  },
+
+  pokCardText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  pokCardTextType: {
+    fontSize: 14,
+    fontWeight: "normal",
+  },
+});
