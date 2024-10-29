@@ -32,12 +32,27 @@ export default function App() {
 
       <FlatList
         data={PokemonData}
+        ListEmptyComponent={() => {
+          return <Text style={{ color: "#fff" }}> Sorr No Data Found</Text>;
+        }}
         renderItem={({ item }) => {
           return (
             <View key={item.id} style={styles.pokCard}>
               <Text style={styles.pokCardText}>{item.name}</Text>
               <Text style={styles.pokCardTextType}>{item.type}</Text>
             </View>
+          );
+        }}
+        ItemSeparatorComponent={() => {
+          return (
+            <View
+              style={{
+                height: 1,
+                backgroundColor: "#fcc",
+                width: "100%",
+                marginVertical: 4,
+              }}
+            />
           );
         }}
       />
