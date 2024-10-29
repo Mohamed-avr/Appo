@@ -5,6 +5,7 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
+  FlatList,
 } from "react-native";
 import PokemonData from "./Data.json";
 import { StatusBar } from "expo-status-bar";
@@ -14,22 +15,32 @@ export default function App() {
   return (
     <SafeAreaView
       style={{
-        paddingTop: Platform.OS === "ios" ? 24 : 16,
+        paddingTop: Platform.OS === "ios" ? 24 : 36,
         paddingHorizontal: Platform.OS === "android" ? 16 : 16,
         backgroundColor: "#000",
         flex: 1,
       }}
     >
-      <ScrollView>
-        {PokemonData.map((pok) => {
+      {/* {PokemonData.map((pok) => {
+        return (
+          <View key={pok.id} style={styles.pokCard}>
+            <Text style={styles.pokCardText}>{pok.name}</Text>
+            <Text style={styles.pokCardTextType}>{pok.type}</Text>
+          </View>
+        );
+      })} */}
+
+      <FlatList
+        data={PokemonData}
+        renderItem={({ item }) => {
           return (
-            <View key={pok.id} style={styles.pokCard}>
-              <Text style={styles.pokCardText}>{pok.name}</Text>
-              <Text style={styles.pokCardTextType}>{pok.type}</Text>
+            <View key={item.id} style={styles.pokCard}>
+              <Text style={styles.pokCardText}>{item.name}</Text>
+              <Text style={styles.pokCardTextType}>{item.type}</Text>
             </View>
           );
-        })}
-      </ScrollView>
+        }}
+      />
     </SafeAreaView>
   );
 }
