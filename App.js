@@ -21,15 +21,6 @@ export default function App() {
         flex: 1,
       }}
     >
-      {/* {PokemonData.map((pok) => {
-        return (
-          <View key={pok.id} style={styles.pokCard}>
-            <Text style={styles.pokCardText}>{pok.name}</Text>
-            <Text style={styles.pokCardTextType}>{pok.type}</Text>
-          </View>
-        );
-      })} */}
-
       <FlatList
         data={PokemonData}
         ListEmptyComponent={() => {
@@ -41,6 +32,20 @@ export default function App() {
               <Text style={styles.pokCardText}>{item.name}</Text>
               <Text style={styles.pokCardTextType}>{item.type}</Text>
             </View>
+          );
+        }}
+        ListHeaderComponent={() => {
+          return (
+            <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
+              Pokemon List
+            </Text>
+          );
+        }}
+        ListFooterComponent={() => {
+          return (
+            <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
+              End of the List
+            </Text>
           );
         }}
         ItemSeparatorComponent={() => {
