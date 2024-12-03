@@ -13,6 +13,22 @@ import {
 export default function App() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  // validation form function
+  const validateForm = () => {
+    let errors = {};
+
+    //  if the username is empty "false" add the property to the object
+    if (!userName) errors.userName = "Username is required";
+
+    //  if the passowrd is empty "false" add the property to the object
+    if (!password) errors.password = "Password is required";
+
+    // if we have a property inside the error object return false
+    return Object.keys(errors).length == 0;
+  };
+
   return (
     <KeyboardAvoidingView
       behavior="padding"
@@ -35,6 +51,9 @@ export default function App() {
           placeholder="Enter your name"
           onChangeText={setUserName}
         />
+        {errors.userName && (
+          <Text style={styles.errorText}>{errors.userName}</Text>
+        )}
 
         <Text style={styles.label}> Passowrd</Text>
         <TextInput
@@ -44,6 +63,9 @@ export default function App() {
           onChangeText={setPassword}
           secureTextEntry={true}
         />
+        {errors.password && (
+          <Text style={styles.errorText}>{errors.password}</Text>
+        )}
 
         <Button style={styles.login} title="Submit" />
       </View>
@@ -97,6 +119,11 @@ const styles = StyleSheet.create({
     height: 250,
     alignSelf: "center",
     marginBottom: 50,
-    backgroundColor: "red",
+    backgroundColor: "#ccc",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 10,
   },
 });
