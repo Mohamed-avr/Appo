@@ -11,22 +11,35 @@ import {
 } from "react-native";
 
 export default function App() {
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
   // validation form function
   const validateForm = () => {
+    // this is an object,everytime we got an error we will throw it inisde this object
     let errors = {};
 
     //  if the username is empty "false" add the property to the object
-    if (!userName) errors.userName = "Username is required";
+    if (!username) errors.username = "username is required, please try again";
 
     //  if the passowrd is empty "false" add the property to the object
-    if (!password) errors.password = "Password is required";
+    if (!password) errors.password = "Password is required, please try again";
+
+    // We put the scope object to the parent object "error object"
+    setErrors(errors);
 
     // if we have a property inside the error object return false
     return Object.keys(errors).length == 0;
+  };
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      console.log("Form submitted successfully", username, password);
+      setUsername("");
+      setPassword("");
+      setErrors({});
+    }
   };
 
   return (
@@ -44,15 +57,15 @@ export default function App() {
     >
       <View style={styles.form}>
         <View style={styles.image}></View>
-        <Text style={styles.label}> Username</Text>
+        <Text style={styles.label}> username</Text>
         <TextInput
           style={styles.input}
-          value={userName}
+          value={username}
           placeholder="Enter your name"
-          onChangeText={setUserName}
+          onChangeText={setUsername}
         />
-        {errors.userName && (
-          <Text style={styles.errorText}>{errors.userName}</Text>
+        {errors.username && (
+          <Text style={styles.errorText}>{errors.username}</Text>
         )}
 
         <Text style={styles.label}> Passowrd</Text>
@@ -67,7 +80,7 @@ export default function App() {
           <Text style={styles.errorText}>{errors.password}</Text>
         )}
 
-        <Button style={styles.login} title="Submit" />
+        <Button style={styles.login} title="Submit" onPress={handleSubmit} />
       </View>
     </KeyboardAvoidingView>
   );
@@ -98,7 +111,7 @@ const styles = StyleSheet.create({
     height: 48,
     borderColor: "#ddd",
     borderWidth: 1,
-    marginBottom: 15,
+    marginBottom: 10,
     padding: 10,
     borderRadius: 5,
   },
@@ -123,7 +136,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
-    fontSize: 12,
+    fontSize: 13,
     marginBottom: 10,
   },
 });
