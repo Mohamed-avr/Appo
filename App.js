@@ -1,24 +1,22 @@
 import { useState } from "react";
 import {
   View,
-  SafeAreaView,
   Text,
   Platform,
   StyleSheet,
-  ScrollView,
-  FlatList,
-  SectionList,
-  StatusBar,
   TextInput,
-  Switch,
+  Image,
   Button,
+  KeyboardAvoidingView,
 } from "react-native";
 
 export default function App() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <View
+    <KeyboardAvoidingView
+      behavior="padding"
+      keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 80}
       style={{
         paddingTop: Platform.OS === "ios" ? 24 : 36,
         paddingHorizontal: Platform.OS === "android" ? 16 : 16,
@@ -29,6 +27,7 @@ export default function App() {
       }}
     >
       <View style={styles.form}>
+        <View style={styles.image}></View>
         <Text style={styles.label}> Username</Text>
         <TextInput
           style={styles.input}
@@ -48,7 +47,7 @@ export default function App() {
 
         <Button style={styles.login} title="Submit" />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -92,5 +91,12 @@ const styles = StyleSheet.create({
     color: "white",
     padding: 10,
     color: "#f194ff",
+  },
+  image: {
+    width: 300,
+    height: 250,
+    alignSelf: "center",
+    marginBottom: 50,
+    backgroundColor: "red",
   },
 });
