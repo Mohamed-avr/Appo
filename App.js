@@ -6,10 +6,13 @@ import {
   FlatList,
   StyleSheet,
   SafeAreaView,
+  ActivityIndicator,
+  StatusBar,
 } from "react-native";
 
 export default function App() {
   const [postData, setPostData] = useState([]);
+  const [isloading, setIsLoading] = useState(true);
 
   const fetchData = async (limit = 4) => {
     const respone = await fetch(
@@ -17,17 +20,27 @@ export default function App() {
     );
     const data = await respone.json();
     setPostData(data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchData(23);
   }, []);
 
+  if (isloading) {
+    return (
+      <SafeAreaView style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="blue" />
+        <Text> data Loading...</Text>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView
       behavior="padding"
       style={{
-        paddingTop: Platform.OS === "ios" ? 24 : 36,
+        paddingTop: StatusBar.currentHight,
         paddingHorizontal: Platform.OS === "android" ? 16 : 24,
         backgroundColor: "#ccc",
         flex: 1,
@@ -36,6 +49,7 @@ export default function App() {
       <FlatList
         data={postData}
         keyExtractor={(item) => item.id.toString()}
+        stickyHeaderIndices={[0]}
         ListEmptyComponent={() => (
           <Text style={styles.emptyList}>
             No data found!, please reload your app again
@@ -82,11 +96,18 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     marginBottom: 16,
     marginTop: 32,
+    backgroundColor: "#fff",
+    padding: 16,
   },
   istFooterComponent: {
     fontSize: 24,
     fontWeight: "400",
     marginBottom: 16,
     marginTop: 32,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
