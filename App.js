@@ -1,142 +1,92 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
   Platform,
+  FlatList,
   StyleSheet,
-  TextInput,
-  Image,
-  Button,
-  KeyboardAvoidingView,
+  SafeAreaView,
 } from "react-native";
 
 export default function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [postData, setPostData] = useState([]);
 
-  // validation form function
-  const validateForm = () => {
-    // this is an object,everytime we got an error we will throw it inisde this object
-    let errors = {};
-
-    //  if the username is empty "false" add the property to the object
-    if (!username) errors.username = "username is required, please try again";
-
-    //  if the passowrd is empty "false" add the property to the object
-    if (!password) errors.password = "Password is required, please try again";
-
-    // We put the scope object to the parent object "error object"
-    setErrors(errors);
-
-    // if we have a property inside the error object return false
-    return Object.keys(errors).length == 0;
+  const fetchData = async (limit = 4) => {
+    const respone = await fetch(
+      `https://jsonplaceholder.typicode.com/posts?_limit=${limit}`
+    );
+    const data = await respone.json();
+    setPostData(data);
   };
 
-  const handleSubmit = () => {
-    if (validateForm()) {
-      console.log("Form submitted successfully", username, password);
-      setUsername("");
-      setPassword("");
-      setErrors({});
-    }
-  };
+  useEffect(() => {
+    fetchData(23);
+  }, []);
 
   return (
-    <KeyboardAvoidingView
+    <SafeAreaView
       behavior="padding"
-      keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 80}
       style={{
         paddingTop: Platform.OS === "ios" ? 24 : 36,
-        paddingHorizontal: Platform.OS === "android" ? 16 : 16,
-        backgroundColor: "#f0f0f0",
+        paddingHorizontal: Platform.OS === "android" ? 16 : 24,
+        backgroundColor: "#ccc",
         flex: 1,
-        justifyContent: "center",
-        alignContent: "center",
       }}
     >
-      <View style={styles.form}>
-        <View style={styles.image}></View>
-        <Text style={styles.label}> username</Text>
-        <TextInput
-          style={styles.input}
-          value={username}
-          placeholder="Enter your name"
-          onChangeText={setUsername}
-        />
-        {errors.username && (
-          <Text style={styles.errorText}>{errors.username}</Text>
+      <FlatList
+        data={postData}
+        keyExtractor={(item) => item.id.toString()}
+        ListEmptyComponent={() => (
+          <Text style={styles.emptyList}>
+            No data found!, please reload your app again
+          </Text>
         )}
-
-        <Text style={styles.label}> Passowrd</Text>
-        <TextInput
-          style={styles.input}
-          value={password}
-          placeholder="Enter your passowrd"
-          onChangeText={setPassword}
-          secureTextEntry={true}
-        />
-        {errors.password && (
-          <Text style={styles.errorText}>{errors.password}</Text>
+        ListHeaderComponent={() => (
+          <Text style={styles.istHeaderComponent}>Post Data</Text>
         )}
-
-        <Button style={styles.login} title="Submit" onPress={handleSubmit} />
-      </View>
-    </KeyboardAvoidingView>
+        ListFooterComponent={() => (
+          <Text style={styles.istFooterComponent}>end, see more </Text>
+        )}
+        renderItem={({ item }) => (
+          <View style={styles.item}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>{item.id}</Text>
+            <Text style={styles.par}>{item.title}</Text>
+          </View>
+        )}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  SwitchComponentHeading: {
-    fontSize: 39,
-    color: "#222",
-    fontWeight: "bold",
-    marginTop: 24,
-  },
-
-  form: {
-    padding: 16,
+  item: {
+    marginVertical: 8,
+    padding: 10,
     backgroundColor: "#fff",
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.32,
-    shadowRadius: 5.46,
-    elevation: 9,
+    borderRadius: 10,
   },
-  input: {
-    height: 48,
-    borderColor: "#ddd",
-    borderWidth: 1,
-    marginBottom: 10,
-    padding: 10,
-    borderRadius: 5,
+  id: {
+    fontSize: 22,
   },
-  label: {
-    marginTop: 10,
-    marginBottom: 5,
+  par: {
+    marginTop: 8,
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "300",
   },
-  login: {
-    backgroundColor: "#000",
-    color: "white",
-    padding: 10,
-    color: "#f194ff",
+  emptyList: {
+    fontSize: 20,
+    textAlign: "center",
   },
-  image: {
-    width: 300,
-    height: 250,
-    alignSelf: "center",
-    marginBottom: 50,
-    backgroundColor: "#ccc",
+  istHeaderComponent: {
+    fontSize: 24,
+    fontWeight: "400",
+    marginBottom: 16,
+    marginTop: 32,
   },
-  errorText: {
-    color: "red",
-    fontSize: 13,
-    marginBottom: 10,
+  istFooterComponent: {
+    fontSize: 24,
+    fontWeight: "400",
+    marginBottom: 16,
+    marginTop: 32,
   },
 });
