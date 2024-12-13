@@ -13,8 +13,10 @@ import {
 export default function App() {
   const [postData, setPostData] = useState([]);
   const [isloading, setIsLoading] = useState(true);
+  const [refreshing, setIsRefreshing] = useState(false);
+  const [limit, setLimit] = useState(14);
 
-  const fetchData = async (limit = 4) => {
+  const fetchData = async (limit = 120) => {
     const respone = await fetch(
       `https://jsonplaceholder.typicode.com/posts?_limit=${limit}`
     );
@@ -23,8 +25,15 @@ export default function App() {
     setIsLoading(false);
   };
 
+  const handleRefresh = () => {
+    setLimit(limit - 2);
+    setIsRefreshing(true);
+    fetchData(limit);
+    setIsRefreshing(false);
+  };
+
   useEffect(() => {
-    fetchData(23);
+    fetchData(limit);
   }, []);
 
   if (isloading) {
@@ -67,6 +76,8 @@ export default function App() {
             <Text style={styles.par}>{item.title}</Text>
           </View>
         )}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
       />
     </SafeAreaView>
   );
