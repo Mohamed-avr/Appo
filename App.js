@@ -20,7 +20,6 @@ export default function App() {
   const [postTitle, setPostTitle] = useState("");
   const [postBody, setPostBody] = useState("");
   const [isPosting, setIsPosting] = useState(false);
-  const [postId, setPostId] = useState(10);
 
   const fetchData = async (limit = 10) => {
     const response = await fetch(
@@ -32,6 +31,11 @@ export default function App() {
   };
 
   const addPost = async () => {
+    if (!postTitle.trim() || !postBody.trim()) {
+      alert("Please fill all the fields!");
+      return;
+    }
+
     setIsPosting(true);
     const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "post",
@@ -39,11 +43,16 @@ export default function App() {
       body: JSON.stringify({
         title: postTitle,
         body: postBody,
-        userId: postId,
+        userId: 1,
       }),
     });
 
     const newPost = await response.json();
+
+    // Generate a unique ID to avoid key conflicts : we can use other methods
+    newPost.id = postData.length + 1;
+
+    // Add the new post to the beginning of the list
     setPostData([newPost, ...postData]);
 
     // initial inputs
