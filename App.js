@@ -14,9 +14,8 @@ export default function App() {
   const [postData, setPostData] = useState([]);
   const [isloading, setIsLoading] = useState(true);
   const [refreshing, setIsRefreshing] = useState(false);
-  const [limit, setLimit] = useState(14);
 
-  const fetchData = async (limit = 120) => {
+  const fetchData = async (limit = 10) => {
     const respone = await fetch(
       `https://jsonplaceholder.typicode.com/posts?_limit=${limit}`
     );
@@ -25,16 +24,15 @@ export default function App() {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleRefresh = () => {
-    setLimit(limit - 2);
     setIsRefreshing(true);
-    fetchData(limit);
+    fetchData(20);
     setIsRefreshing(false);
   };
-
-  useEffect(() => {
-    fetchData(limit);
-  }, []);
 
   if (isloading) {
     return (
