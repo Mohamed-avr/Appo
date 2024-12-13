@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,8 @@ import {
   SafeAreaView,
   ActivityIndicator,
   StatusBar,
+  TextInput,
+  Button,
 } from "react-native";
 
 export default function App() {
@@ -15,13 +17,40 @@ export default function App() {
   const [isloading, setIsLoading] = useState(true);
   const [refreshing, setIsRefreshing] = useState(false);
 
+  const [postTitle, setPostTitle] = useState("");
+  const [postBody, setPostBody] = useState("");
+  const [isPosting, setIsPosting] = useState(false);
+  const [postId, setPostId] = useState(10);
+
   const fetchData = async (limit = 10) => {
-    const respone = await fetch(
+    const response = await fetch(
       `https://jsonplaceholder.typicode.com/posts?_limit=${limit}`
     );
-    const data = await respone.json();
+    const data = await response.json();
     setPostData(data);
     setIsLoading(false);
+  };
+
+  const addPost = async () => {
+    setIsPosting(true);
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "post",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify({
+        title: postTitle,
+        body: postBody,
+        userId: postId,
+      }),
+    });
+
+    const newPost = await response.json();
+    setPostData([newPost, ...postData]);
+
+    // initial inputs
+    setPostTitle("");
+    setPostBody("");
+
+    setIsPosting(false);
   };
 
   useEffect(() => {
@@ -47,36 +76,60 @@ export default function App() {
     <SafeAreaView
       behavior="padding"
       style={{
-        paddingTop: StatusBar.currentHight,
+        paddingTop: StatusBar.currentHeight,
         paddingHorizontal: Platform.OS === "android" ? 16 : 24,
         backgroundColor: "#ccc",
         flex: 1,
       }}
     >
-      <FlatList
-        data={postData}
-        keyExtractor={(item) => item.id.toString()}
-        stickyHeaderIndices={[0]}
-        ListEmptyComponent={() => (
-          <Text style={styles.emptyList}>
-            No data found!, please reload your app again
-          </Text>
-        )}
-        ListHeaderComponent={() => (
-          <Text style={styles.istHeaderComponent}>Post Data</Text>
-        )}
-        ListFooterComponent={() => (
-          <Text style={styles.istFooterComponent}>end, see more </Text>
-        )}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>{item.id}</Text>
-            <Text style={styles.par}>{item.title}</Text>
-          </View>
-        )}
-        refreshing={refreshing}
-        onRefresh={handleRefresh}
-      />
+      <>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={postTitle}
+            placeholder="Type a title!"
+            onChangeText={setPostTitle}
+          />
+
+          <TextInput
+            style={styles.input}
+            value={postBody}
+            placeholder="Type a paragraph!"
+            onChangeText={setPostBody}
+          />
+          <Button
+            onPress={addPost}
+            disabled={isPosting}
+            title={isPosting ? "...adding" : "Add Post"}
+          />
+        </View>
+        <FlatList
+          data={postData}
+          keyExtractor={(item) => item.id.toString()}
+          stickyHeaderIndices={[0]}
+          ListEmptyComponent={() => (
+            <Text style={styles.emptyList}>
+              No data found!, please reload your app again
+            </Text>
+          )}
+          ListHeaderComponent={() => (
+            <Text style={styles.istHeaderComponent}>Post Data</Text>
+          )}
+          ListFooterComponent={() => (
+            <Text style={styles.istFooterComponent}>end, see more </Text>
+          )}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                {item.title}
+              </Text>
+              <Text style={styles.par}>{item.body}</Text>
+            </View>
+          )}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+        />
+      </>
     </SafeAreaView>
   );
 }
@@ -118,5 +171,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  inputContainer: {
+    backgroundColor: "white",
+    padding: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    marginTop: 70,
+  },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 8,
+    padding: 8,
+    borderRadius: 8,
   },
 });
