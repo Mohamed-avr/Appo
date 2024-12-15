@@ -60,6 +60,11 @@ export default function App() {
     setPostBody("");
 
     setIsPosting(false);
+      
+    (error) => {
+      console.log(error);
+    }; 
+
   };
 
   useEffect(() => {
