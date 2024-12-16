@@ -21,50 +21,64 @@ export default function App() {
   const [postBody, setPostBody] = useState("");
   const [isPosting, setIsPosting] = useState(false);
 
+  const [error, setError] = useState("");
+
   const fetchData = async (limit = 10) => {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/posts?_limit=${limit}`
-    );
-    const data = await response.json();
-    setPostData(data);
-    setIsLoading(false);
+    try {
+      const response = await fetch(
+        `https://jsonplaceholder.typicode.com/posts?_limit=${limit}`
+      );
+      const data = await response.json();
+      setPostData(data);
+      setIsLoading(false);
+      setError("");
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+      setError("Something went wrong!");
+    }
   };
 
   const addPost = async () => {
-    if (!postTitle.trim() || !postBody.trim()) {
-      alert("Please fill all the fields!");
-      return;
+    try {
+      if (!postTitle.trim() || !postBody.trim()) {
+        alert("Please fill all the fields!");
+        return;
+      }
+
+      setIsPosting(true);
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts",
+        {
+          method: "post",
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+          body: JSON.stringify({
+            title: postTitle,
+            body: postBody,
+            userId: 1,
+          }),
+        }
+      );
+
+      const newPost = await response.json();
+
+      // Generate a unique ID to avoid key conflicts : we can use other methods
+      newPost.id = postData.length + 1;
+
+      // Add the new post to the beginning of the list
+      setPostData([newPost, ...postData]);
+
+      // initial inputs
+      setPostTitle("");
+      setPostBody("");
+      setIsPosting(false);
+
+      //  clear any error
+      setError("");
+    } catch (error) {
+      setError("Something went wrong!");
+      console.error(error);
     }
-
-    setIsPosting(true);
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
-      method: "post",
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({
-        title: postTitle,
-        body: postBody,
-        userId: 1,
-      }),
-    });
-
-    const newPost = await response.json();
-
-    // Generate a unique ID to avoid key conflicts : we can use other methods
-    newPost.id = postData.length + 1;
-
-    // Add the new post to the beginning of the list
-    setPostData([newPost, ...postData]);
-
-    // initial inputs
-    setPostTitle("");
-    setPostBody("");
-
-    setIsPosting(false);
-      
-    (error) => {
-      console.log(error);
-    }; 
-
   };
 
   useEffect(() => {
