@@ -110,54 +110,74 @@ export default function App() {
         flex: 1,
       }}
     >
-      <>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={postTitle}
-            placeholder="Type a title!"
-            onChangeText={setPostTitle}
-          />
-
-          <TextInput
-            style={styles.input}
-            value={postBody}
-            placeholder="Type a paragraph!"
-            onChangeText={setPostBody}
-          />
-          <Button
-            onPress={addPost}
-            disabled={isPosting}
-            title={isPosting ? "...adding" : "Add Post"}
-          />
+      {error ? (
+        <View
+          style={{
+            padding: 16,
+            backgroundColor: "#fff",
+            borderRadius: 10,
+            marginTop: 32,
+          }}
+        >
+          <Text
+            style={{
+              color: "red",
+              fontSize: 18,
+            }}
+          >
+            {error}
+          </Text>
         </View>
-        <FlatList
-          data={postData}
-          keyExtractor={(item) => item.id.toString()}
-          stickyHeaderIndices={[0]}
-          ListEmptyComponent={() => (
-            <Text style={styles.emptyList}>
-              No data found!, please reload your app again
-            </Text>
-          )}
-          ListHeaderComponent={() => (
-            <Text style={styles.istHeaderComponent}>Post Data</Text>
-          )}
-          ListFooterComponent={() => (
-            <Text style={styles.istFooterComponent}>end, see more </Text>
-          )}
-          renderItem={({ item }) => (
-            <View style={styles.item}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                {item.title}
+      ) : (
+        <>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              value={postTitle}
+              placeholder="Type a title!"
+              onChangeText={setPostTitle}
+            />
+
+            <TextInput
+              style={styles.input}
+              value={postBody}
+              placeholder="Type a paragraph!"
+              onChangeText={setPostBody}
+            />
+            <Button
+              onPress={addPost}
+              disabled={isPosting}
+              title={isPosting ? "...adding" : "Add Post"}
+            />
+          </View>
+          <FlatList
+            data={postData}
+            keyExtractor={(item) => item.id.toString()}
+            stickyHeaderIndices={[0]}
+            ListEmptyComponent={() => (
+              <Text style={styles.emptyList}>
+                No data found!, please reload your app again
               </Text>
-              <Text style={styles.par}>{item.body}</Text>
-            </View>
-          )}
-          refreshing={refreshing}
-          onRefresh={handleRefresh}
-        />
-      </>
+            )}
+            ListHeaderComponent={() => (
+              <Text style={styles.istHeaderComponent}>Post Data</Text>
+            )}
+            ListFooterComponent={() => (
+              <Text style={styles.istFooterComponent}>end, see more </Text>
+            )}
+            renderItem={({ item }) => (
+              <View style={styles.item}>
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  {item.title}
+                </Text>
+                <Text style={styles.par}>{item.body}</Text>
+              </View>
+            )}
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+          />
+        </>
+      )}
     </SafeAreaView>
   );
 }
