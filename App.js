@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // screens
 import Home from "./screens/Home";
 import About from "./screens/About";
+import Favorite from "./screens/Favorite";
 
 // stack navigator
 const Stack = createNativeStackNavigator();
@@ -15,6 +16,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="About" component={About} />
+        <Stack.Screen name="Favorite" component={Favorite} />
       </Stack.Navigator>
     </NavigationContainer>
   );

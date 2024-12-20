@@ -1,9 +1,13 @@
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import React from "react";
 
-export default function Favorite() {
+export default function Favorite({ navigation }) {
   return (
-    <View>
+    <View
+      style={{
+        padding: 16,
+      }}
+    >
       <Text
         style={{
           fontSize: 26,
@@ -13,6 +17,12 @@ export default function Favorite() {
       >
         Favorite
       </Text>
+      <Button
+        title="go  back to About"
+        onPress={() => {
+          navigation.goBack();
+        }}
+      />
     </View>
   );
 }

@@ -1,9 +1,13 @@
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import React from "react";
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
-    <View style={{}}>
+    <View
+      style={{
+        padding: 16,
+      }}
+    >
       <Text
         style={{
           fontSize: 26,
@@ -13,6 +17,12 @@ export default function Home() {
       >
         Home
       </Text>
+      <Button
+        title="go to about"
+        onPress={() => {
+          navigation.navigate("About");
+        }}
+      />
     </View>
   );
 }
