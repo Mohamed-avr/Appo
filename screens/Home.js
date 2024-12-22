@@ -1,7 +1,7 @@
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Pressable } from "react-native";
 import React from "react";
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
   return (
     <View
       style={{
@@ -17,10 +17,25 @@ export default function Home({ navigation }) {
       >
         Home
       </Text>
+
       <Button
         title="go to about"
+        style={{
+          backgroundColor: "Pressable",
+          padding: 10,
+          height: 40,
+          borderRadius: 5,
+          marginTop: 20,
+          backgroundColor: "blue",
+          color: "white",
+          fontSize: 20,
+        }}
         onPress={() => {
-          navigation.navigate("About");
+          navigation.navigate("About", {
+            pageName: "About",
+            pageNum: 2,
+            pageID: 23,
+          });
         }}
       />
     </View>
