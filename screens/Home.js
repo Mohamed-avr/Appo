@@ -32,9 +32,7 @@ export default function Home({ navigation, route }) {
         }}
         onPress={() => {
           navigation.navigate("About", {
-            pageName: "About",
-            pageNum: 2,
-            pageID: 23,
+            pageName: "Miew",
           });
         }}
       />

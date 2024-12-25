@@ -4,7 +4,7 @@ import React from "react";
 
 export default function About({ route, navigation }) {
   // destructure route.params object
-  const { pageName, pageNum, pageID } = route.params;
+  const { pageName } = route.params;
 
   return (
     <View
@@ -19,11 +19,9 @@ export default function About({ route, navigation }) {
           marginTop: 250,
         }}
       >
-        About
+        this is the new page name {pageName}
       </Text>
-      <Text style={{ textAlign: "center", margin: 40 }}>
-        {pageName} - {pageNum} - {pageID}
-      </Text>
+      <Text style={{ textAlign: "center", margin: 40 }}></Text>
       <Button
         title="go back home"
         onPress={() => navigation.navigate("Home")}
