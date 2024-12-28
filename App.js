@@ -2,47 +2,26 @@ import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 
 // screen
 import About from "./screens/About";
-import Dashboard from "./screens/Dashboard";
+import Home from "./screens/Home";
+import Account from "./screens/Account";
+import Setting from "./screens/Setting";
 
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const options = {
-    drawerIcon: () => <Text> icon </Text>,
-    drawerActiveTintColor: "#33",
-    drawerActiveBackgroundColor: "#ddd",
-    drawerType: "front",
-    drawerStyle: {
-      backgroundColor: "#ddd",
-      width: 250,
-    },
-    drawerPosition: "left",
-    drawerLabelStyle: {
-      fontSize: 20,
-    },
-    drawerItemStyle: {
-      marginVertical: 10,
-    },
-
-    drawerContentStyle: {
-      backgroundColor: "#eee",
-    },
-  };
   return (
     <NavigationContainer>
-      <Drawer.Navigator>
-        <Drawer.Screen options={options} name="About" component={About} />
-        <Drawer.Screen
-          options={options}
-          name="My Dashboard"
-          component={Dashboard}
-        />
-      </Drawer.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="About" component={About} />
+        <Tab.Screen name="Account" component={Account} />
+        <Tab.Screen name="Setting" component={Setting} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
