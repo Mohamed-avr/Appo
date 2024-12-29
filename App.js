@@ -1,27 +1,27 @@
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-// screen
-import About from "./screens/About";
-import Home from "./screens/Home";
-import Account from "./screens/Account";
-import Setting from "./screens/Setting";
+// Screens
+import MainTabNavigator from "./screens/MainTabNavigator/MainTabNavigator";
+import Alert from "./screens/Alert";
+import Notifcations from "./screens/Notifcations";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-const Tab = createBottomTabNavigator();
+//
+const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="About" component={About} />
-        <Tab.Screen name="Account" component={Account} />
-        <Tab.Screen name="Setting" component={Setting} />
-      </Tab.Navigator>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={MainTabNavigator} />
+        <Drawer.Screen name="alert" component={Alert} />
+        <Drawer.Screen name="Notifcations" component={Notifcations} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
